@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cards Against Humanity</title>
+  <link rel="stylesheet" type="text/css" href="./styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <div id="main-console">
+  </div>
+
+  <script id="start-display" type="text-template">
+    <button id="create-game-button">Create a new game</button>
+    <button id="join-game-button">Join an existing game</button>
+  </script>
+
+  <script id="host-waiting-display" type="text-template">
+    <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
+    game id: <span id="waiting-game-id"></span>
+    players: <span id="waiting-players-count">0</span>
+    <div>
+      <button id="begin-play-button">Start Game</button>
+    </div>
+  </script>
+
+  <script id="join-display" type="text/template">
+    <form id="join-form" action="">
+      <label for="name-input">Name: </label>
+      <input id="name-input" />
+      <label for="game-input">Game: </label>
+      <input id="game-input" />
+      <input type="submit" />
+    </form>
+  </script>
+
+  <script id="player-waiting-display" type="text-template">
+    <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
+    You have joined game <span id="waiting-game-id"></span>.
+    Current players: <span id="waiting-players-count">0</span>
+  </script>
+
+  <script id="host-display" type="text/template">
+    I'm the host!
+    <div id="question-card-div"></div>
+    <div id="played-cards-div"></div>
+  </script>
+
+  <script id="player-display" type="text/template">
+    I'm a player!
+    <div id="question-card-div"></div>
+    <div id="cards-hand-div"></div>
+  </script>
+
+
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.4.3.js"></script>
+  <script>var socket = io();</script>
+  <script src="./cahClient.js"></script>
+</body>
+</html>
