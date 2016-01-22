@@ -2,7 +2,7 @@ var express = require('express'),
     app     = express(),
     http    = require('http').Server(app),
     io      = require('socket.io')(http),
-    cah     = require('./cah.js');
+    cah     = require('./cahServer.js');
 
 app.use(express.static('public'));
 
