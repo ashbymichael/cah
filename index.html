@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Cards Against Humanity</title>
-  <link rel="stylesheet" type="text/css" href="./styles.css">
+  <link rel="stylesheet" type="text/css" href="./css/app.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 
@@ -11,8 +11,10 @@
   </div>
 
   <script id="start-display" type="text-template">
+    <div id="startup-buttons">
     <button id="create-game-button">Create a new game</button>
     <button id="join-game-button">Join an existing game</button>
+    </div>
   </script>
 
   <script id="host-waiting-display" type="text-template">
@@ -26,11 +28,11 @@
 
   <script id="join-display" type="text/template">
     <form id="join-form" action="">
-      <label for="name-input">Name: </label>
-      <input id="name-input" />
-      <label for="game-input">Game: </label>
-      <input id="game-input" />
-      <input type="submit" />
+      <label for="name-input" class="input-style">Name: </label>
+      <input id="name-input" class="input-style"/>
+      <label for="game-input" class="input-style">Game: </label>
+      <input id="game-input" class="input-style"/>
+      <input type="submit" class="input-style" />
     </form>
   </script>
 
@@ -54,8 +56,9 @@
 
 
   <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
   <script src="https://cdn.socket.io/socket.io-1.4.3.js"></script>
   <script>var socket = io();</script>
-  <script src="./cahClient.js"></script>
+  <script src="./controllers/cah.client.js"></script>
 </body>
 </html>
