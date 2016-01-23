@@ -1,15 +1,20 @@
 var express = require('express'),
+
     app     = express(),                // create a new express application
     http    = require('http').Server(app),  // create an http server with NOde's HTTP module. Pass it the express application
     io      = require('socket.io')(http),   //Instantiates Socket.IO
     cah     = require('./cahServer.js');
+
 
 app.use(express.static('public'));
 
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
+app.use(express.static(__dirname + '/app'));
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
+res.sendFile(__dirname + '/index.html');
+
 });
 
 // called when a client/user connects to the application via Socket.IO
