@@ -1,6 +1,6 @@
 var express = require('express'),
     app     = express(),                // create a new express application
-    http    = require('http').Server(app),  //pass it the express application
+    http    = require('http').Server(app),  // create an http server with NOde's HTTP module. Pass it the express application
     io      = require('socket.io')(http),   //Instantiates Socket.IO
     cah     = require('./cahServer.js');
 
