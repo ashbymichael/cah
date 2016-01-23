@@ -2,12 +2,15 @@ var express = require('express'),
     app     = express(),
     http    = require('http').Server(app),
     io      = require('socket.io')(http),
-    cah     = require('./cahServer.js');
+    cah     = require('./app/controllers/cah.server.js');
 
 app.use(express.static('public'));
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
+app.use(express.static(__dirname + '/app'));
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
+res.sendFile(__dirname + '/index.html');
+
 });
 
 io.on('connection', function(socket){
