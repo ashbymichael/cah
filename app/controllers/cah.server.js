@@ -28,6 +28,15 @@ function onPlayerWantsToJoinGame(data) {
   io.sockets.to(data.gameID).emit('playerJoinedGame', data);
 };
 
+// how to get all clients in a given room taken from github examplt
+// function onPLayerhasJionedRoom(data){
+//   var io = require('socket.io')();
+//   io.of(data.room).clients(function(error, clients){
+//     if (error) throw error;
+//     console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
+//   });
+// };
+
 function onStartGame(data) {
   // TODO: deal cards
   // TODO: decide player order
