@@ -1,8 +1,9 @@
 var io,
     gameSocket;
 
+// sets up the event listeners for Socket.io
 exports.initConnect = function(sio, socket) {
-  io = sio;
+  io = sio;  //why do wwe need this ???????? i
   gameSocket = socket;
   gameSocket.emit('connected', {message: "You're connected!"});
   gameSocket.on('createNewGame', onCreateNewGame);
@@ -29,13 +30,13 @@ function onPlayerWantsToJoinGame(data) {
 };
 
 // how to get all clients in a given room taken from github examplt
-// function onPLayerhasJionedRoom(data){
-//   var io = require('socket.io')();
-//   io.of(data.room).clients(function(error, clients){
-//     if (error) throw error;
-//     console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
-//   });
-// };
+function onPLayerhasJoinedRoom(data){
+  var io = require('socket.io')();
+  io.of(data.room).clients(function(error, clients){
+    if (error) throw error;
+    console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
+  });
+};
 
 function onStartGame(data) {
   // TODO: deal cards
