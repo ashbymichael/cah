@@ -15,6 +15,13 @@ io.on('connection', function(socket){
   cah.initConnect(io, socket);
 });
 
+// this code is used for managing rooms
+// var nsp = io.of('/' + gameID);
+// nsp.on('connection', function(socket){
+//   console.log('someone connect to' + gameID);
+// });
+// nsp.emit('hi', 'everyone!');
+
 http.listen(8080, function() {
   console.log("running on port 8080");
 });
