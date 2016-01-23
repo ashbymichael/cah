@@ -26,9 +26,15 @@
       game.loadHostWaitingDisplay();
       $('#waiting-game-id').text(data.gameID);
     },
+    // not sure this every get called
     onPlayerJoinedGame: function(data) {
       console.log(data.playerName + ' joined. please wait.');
       // TODO: increase player count
+      var io = require('socket.io')();
+      io.of(data.room).clients(function(error, clients){
+        if (error) throw error;
+        console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
+      });
     },
     onGameStarted: function(data) {
       if (game.myName === 'host') {
