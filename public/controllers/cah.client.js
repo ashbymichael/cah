@@ -26,9 +26,12 @@
       game.loadHostWaitingDisplay();
       $('#waiting-game-id').text(data.gameID);
     },
+    // not sure this every get called
     onPlayerJoinedGame: function(data) {
       console.log(data.playerName + ' joined. please wait.');
       // TODO: increase player count
+      console.log(data)
+      $("#waiting-players-count").text(data.numOfPlayer);
     },
     onGameStarted: function(data) {
       if (game.myName === 'host') {
