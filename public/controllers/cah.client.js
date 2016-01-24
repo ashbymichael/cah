@@ -30,11 +30,8 @@
     onPlayerJoinedGame: function(data) {
       console.log(data.playerName + ' joined. please wait.');
       // TODO: increase player count
-      var io = require('socket.io')();
-      io.of(data.room).clients(function(error, clients){
-        if (error) throw error;
-        console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
-      });
+      console.log(data)
+      $("#waiting-players-count").text(data.numOfPlayer);
     },
     onGameStarted: function(data) {
       if (game.myName === 'host') {

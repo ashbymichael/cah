@@ -26,13 +26,15 @@ function onPlayerWantsToJoinGame(data) {
   console.log(data.playerName + " wants to join " + data.gameID);
   var sock = this;
   sock.join(data.gameID);
-  io.sockets.to(data.gameID).emit('playerJoinedGame', data); //  not sure this line is getting called
+  data["numOfPlayer"] = io.nsps['/'].adapter.rooms[data.gameID].length - 1;
+  console.log(data);
+  io.sockets.to(data.gameID).emit('playerJoinedGame', data);
 };
 
 function onStartGame(data) {
   // TODO: deal cards
   // TODO: decide player order
-  // console.log(io.nsps['/'].adapter.rooms[data.room]);
+  // console.log(io.nsps['/'].adapter.rooms[data.room].length);
   console.log(data.room + " is ready to start the game.");
   io.sockets.to(data.room).emit('gameStarted');
 }
