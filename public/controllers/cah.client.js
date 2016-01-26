@@ -30,14 +30,14 @@
     onPlayerJoinedGame: function(data) {
       console.log(socket);
       console.log(data.playerName + ' joined. please wait.');
-<<<<<<< HEAD
-      // TODO: increase player count
-      console.log("client:" + data)
-      socket.emit('playerHasJoinedGame', data.playerName) 
-=======
-      console.log(data);
->>>>>>> f9e119d06af19d1a616a426b341522c974a9030c
       $("#waiting-players-count").text(data.numOfPlayer);
+
+      // displays the list of player in the game
+      var list = data.rooms[data.gameID].players ;
+        $("#players-list").empty();
+        for (var name in list) {
+        $("#players-list").append("<li>" + list[name] + "</li>");
+        }
     },
     onGameStarted: function(data) {
       if (game.myName === 'host') {

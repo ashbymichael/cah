@@ -1,4 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body{
+  text-align: center;
+  margin: auto;
+  padding-top: 2em;
+}
 button {
   font-size: inherit;
   padding: .25em;
