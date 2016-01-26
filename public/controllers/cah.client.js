@@ -30,7 +30,8 @@
     onPlayerJoinedGame: function(data) {
       console.log(data.playerName + ' joined. please wait.');
       // TODO: increase player count
-      console.log(data)
+      console.log("client:" + data)
+      socket.emit('playerHasJoinedGame', data.playerName) 
       $("#waiting-players-count").text(data.numOfPlayer);
     },
     onGameStarted: function(data) {

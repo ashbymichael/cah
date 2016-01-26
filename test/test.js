@@ -4,15 +4,6 @@
 var assert = require('assert');
 var should = require('should');
 
-// describe('Array', function() {
-//   describe('#indexOf()', function() {
-//     it('Should return -1 when the value is not present', function(){
-//       assert.equal(-1, [1,2,3].indexOf(5));
-//       assert.equal(-1, [1,2,3].indexOf(0));
-//     });
-//   });
-// });
-
 // Synchronous Code testing
 describe('Array', function() {
   describe('#indexOf()', function() {
@@ -38,13 +29,3 @@ describe('User', function() {
     });
   });
 });
-
-describe('index page', function(){
-  it('should respond to GET', function(done){
-    get('http://localhost:8080')
-    end(function(res){
-      expect(res.status).to.equal(200);
-      don();
-    })
-  })
-})
