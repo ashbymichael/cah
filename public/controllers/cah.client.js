@@ -17,6 +17,7 @@
       game.loadStartDisplay();
     },
     onNewGameCreated: function(data) {
+      console.log(data);
       game.gameID = data.gameID;
       game.mySocketID = data.mySocketID;
       if (game.myName === '') {
@@ -26,12 +27,16 @@
       game.loadHostWaitingDisplay();
       $('#waiting-game-id').text(data.gameID);
     },
-    // not sure this every get called
     onPlayerJoinedGame: function(data) {
+      console.log(socket);
       console.log(data.playerName + ' joined. please wait.');
+<<<<<<< HEAD
       // TODO: increase player count
       console.log("client:" + data)
       socket.emit('playerHasJoinedGame', data.playerName) 
+=======
+      console.log(data);
+>>>>>>> f9e119d06af19d1a616a426b341522c974a9030c
       $("#waiting-players-count").text(data.numOfPlayer);
     },
     onGameStarted: function(data) {

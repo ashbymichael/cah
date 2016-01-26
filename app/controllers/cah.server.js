@@ -1,5 +1,6 @@
 var io,
-    gameSocket;
+    gameSocket,
+    rooms = {};
 
 // sets up the event listeners for Socket.io
 exports.initConnect = function(sio, socket) {
@@ -17,6 +18,7 @@ function onCreateNewGame() {
   console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
   console.log("MESSAGES from 'onCreateNewGame' callback")
   console.log('new game id: ' + thisGameID);
+  rooms[thisGameID] = { players: [] };
 
   this.join(thisGameID.toString());
   this.emit('newGameCreated', { gameID: thisGameID, mySocketID: this.id });
@@ -24,6 +26,7 @@ function onCreateNewGame() {
   console.log("Created room: " + thisGameID + " with SocketID: " + this.id);
   // console.log(gameSocket.id);
   console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
 };
 
 function onPlayerWantsToJoinGame(data) {
@@ -33,6 +36,8 @@ function onPlayerWantsToJoinGame(data) {
   console.log(data.playerName + " wants to join " + data.gameID);
   var sock = this;
   sock.join(data.gameID);
+  rooms[data.gameID].players.push(data.playerName);
+  data["rooms"] = rooms;
   data["numOfPlayer"] = io.nsps['/'].adapter.rooms[data.gameID].length - 1;
   console.log("server:");
   console.log(data);
