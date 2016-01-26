@@ -18,9 +18,10 @@
   </script>
 
   <script id="host-waiting-display" type="text-template">
-    <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
-    game id: <span id="waiting-game-id"></span>
-    players: <span id="waiting-players-count">0</span>
+    <i class="fa fa-circle-o-notch fa-spin fa-5x"></i><br>
+    Game id: <span id="waiting-game-id"></span><br>
+    # of players: <span id="waiting-players-count">0</span><br>
+    player in game: <ul id="players-list"></ul><br>
     <div>
       <button id="begin-play-button">Start Game</button>
     </div>
@@ -37,9 +38,10 @@
   </script>
 
   <script id="player-waiting-display" type="text-template">
-    <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
-    You have joined game <span id="waiting-game-id"></span>.
-    Current players: <span id="waiting-players-count">0</span>
+    <i class="fa fa-circle-o-notch fa-spin fa-5x"></i><br>
+    You have joined game <span id="waiting-game-id"></span><br>
+    Current players: <span id="waiting-players-count">0</span><br>
+    player in game: <ul id="players-list"></ul><br>
   </script>
 
   <script id="host-display" type="text/template">
