@@ -2,6 +2,7 @@
 
 html {
   box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -19,7 +20,6 @@ button {
   background: #fff;
   border: 1px solid;
   border-radius: .3em;
-  font-family: "Roboto";
 }
 
 .input-style{
@@ -32,6 +32,6 @@ button {
   font-family: "Roboto";
 }
 
-.label {
-  font-family: "Roboto";
+.plain-list {
+  list-style: none;
 }
