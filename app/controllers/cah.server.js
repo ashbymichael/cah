@@ -19,6 +19,9 @@ function onCreateNewGame() {
 
   this.join(thisGameID.toString());
   this.emit('newGameCreated', { gameID: thisGameID, mySocketID: this.id });
+
+  console.log("Created room: " + thisGameID + " with SocketID: " + this.id);
+
 };
 
 function onPlayerWantsToJoinGame(data) {
@@ -28,8 +31,9 @@ function onPlayerWantsToJoinGame(data) {
   rooms[data.gameID].players.push(data.playerName);
   data["rooms"] = rooms;
   data["numOfPlayer"] = io.nsps['/'].adapter.rooms[data.gameID].length - 1;
-  console.log(data);
+  console.log(this.adapter.rooms[data.gameID].sockets);
   io.sockets.to(data.gameID).emit('playerJoinedGame', data);
+  console.log("------------------------------------------------------------");
 };
 
 function onStartGame(data) {
