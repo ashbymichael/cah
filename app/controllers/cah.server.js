@@ -38,8 +38,16 @@ function onPlayerWantsToJoinGame(data) {
 
 function onStartGame(data) {
   // TODO: deal cards
-  // TODO: decide player order
-  // console.log(io.nsps['/'].adapter.rooms[data.room].length);
+
+  // randomize player order
+  shuffle(rooms[data.room].players);
+
   console.log(data.room + " is ready to start the game.");
-  io.sockets.to(data.room).emit('gameStarted');
+  io.sockets.to(data.room).emit('gameStarted',
+                                { players: rooms[data.room].players });
+}
+
+function shuffle(arr){
+    for(var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
+    return arr;
 }
