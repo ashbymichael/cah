@@ -52,6 +52,7 @@
 
   var game = {
     myName: '',
+    myRole: '',
     gameID: '',
 
     // Display loading functions
