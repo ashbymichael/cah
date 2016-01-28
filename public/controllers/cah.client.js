@@ -52,6 +52,7 @@
 
   var game = {
     myName: '',
+    myRole: '',
     gameID: '',
 
     // Display loading functions
@@ -59,10 +60,12 @@
       $('#main-console').html($('#start-display').html());
       $('#create-game-button').click(function() {
         console.log('create game clicked')
+        game.myRole = 'host';
         socket.emit('createNewGame');
       });
       $('#join-game-button').click(function() {
         console.log('join button clicked');
+        game.myRole = 'player';
         game.loadJoinDisplay();
       });
     },
