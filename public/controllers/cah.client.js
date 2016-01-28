@@ -41,9 +41,9 @@
     },
     onGameStarted: function(data) {
       if (game.myName === 'host') {
-        game.loadHostDisplay();
+        game.loadHostDisplay(data);
       } else {
-        game.loadPlayerDisplay();
+        game.loadPlayerDisplay(data);
       }
     }
   }
@@ -79,7 +79,8 @@
         game.myName = $("#name-input").val();
         game.gameID = $("#game-input").val();
         game.loadPlayerWaitingDisplay();
-        socket.emit('playerWantsToJoinGame', { playerName: game.myName, gameID: game.gameID });
+        socket.emit('playerWantsToJoinGame',
+                    { playerName: game.myName, gameID: game.gameID });
       })
     },
     loadPlayerWaitingDisplay: function() {
@@ -88,6 +89,9 @@
     },
     loadHostDisplay: function(data) {
       $('#main-console').html($('#host-display').html());
+      for (var player in data.players) {
+        $('#player-order-list').append("<li>" + data.players[player] + "</li>");
+      }
     },
     loadPlayerDisplay: function(data) {
       $('#main-console').html($('#player-display').html());

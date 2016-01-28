@@ -30,7 +30,7 @@
   <script id="join-display" type="text/template">
     <form id="join-form" action="">
       <label for="name-input" class="label">Name: </label>
-      <input id="name-input" class="input-style"/>
+      <input id="name-input" class="input-style" autofocus />
       <label for="game-input" class="label">Game: </label>
       <input id="game-input" class="input-style"/>
       <input type="submit" class="input-style" />
@@ -46,6 +46,10 @@
 
   <script id="host-display" type="text/template">
     I'm the host!
+    <div>
+      Players:
+      <ul id="player-order-list" class="plain-list"><ul>
+    </div>
     <div id="question-card-div"></div>
     <div id="played-cards-div"></div>
   </script>
