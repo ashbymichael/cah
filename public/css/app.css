@@ -35,3 +35,13 @@ button {
 .plain-list {
   list-style: none;
 }
+
+#main-console {
+  margin: 1rem auto;
+  width: 80%;
+}
+
+#game-options-div {
+  border: 1px solid #666;
+  border-radius: .3rem;
+}
