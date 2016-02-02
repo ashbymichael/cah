@@ -54,6 +54,8 @@
     myName: '',
     myRole: '',
     gameID: '',
+    myCzarCards: '',
+    myPlayerCards: '',
 
     // Display loading functions
     loadStartDisplay: function() {
@@ -98,6 +100,10 @@
     },
     loadPlayerDisplay: function(data) {
       $('#main-console').html($('#player-display').html());
+      // $('#question-card-div').append("<li>" + #HOSTcard.text + "</li>")
+      // for (var card in #something){
+      //   $('#card-hand-div').append("<li>" + card.text + "</li>");
+      // }
     }
   }
 

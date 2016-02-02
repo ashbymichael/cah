@@ -1,6 +1,8 @@
 var io,
     gameSocket,
-    rooms = {};
+    rooms = {},
+    questions = require("cah-cards/questions"),
+    answers = require("cah-cards/answers");
 
 // sets up the event listeners for Socket.io
 exports.initConnect = function(sio, socket) {
@@ -15,7 +17,19 @@ exports.initConnect = function(sio, socket) {
 function onCreateNewGame() {
   var thisGameID = parseInt(Math.random() * 10000, 10);
   console.log('new game id: ' + thisGameID);
-  rooms[thisGameID] = { players: [] };
+  rooms[thisGameID] = {
+    players: [],
+    question_cards: [],
+    answer_cards: []
+   };
+
+   for(question in questions){
+       rooms[thisGameID].question_cards.push(questions[question]);
+   };
+
+   for(answer in answers){
+       rooms[thisGameID].answer_cards.push(answers[answer]);
+   };
 
   this.join(thisGameID.toString());
   this.emit('newGameCreated', { gameID: thisGameID, mySocketID: this.id });
