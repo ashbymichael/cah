@@ -42,7 +42,8 @@ function onPlayerWantsToJoinGame(data) {
   console.log(data.playerName + " wants to join " + data.gameID);
   var sock = this;
   sock.join(data.gameID);
-  rooms[data.gameID].players.push(data.playerName);
+  name = data.playerName
+  rooms[data.gameID].players.push({id: this.id, player_name: name});
   data["rooms"] = rooms;
   data["numOfPlayer"] = io.nsps['/'].adapter.rooms[data.gameID].length - 1;
   console.log(this.adapter.rooms[data.gameID].sockets);
@@ -50,12 +51,23 @@ function onPlayerWantsToJoinGame(data) {
   console.log("------------------------------------------------------------");
 };
 
+// at this point data is {room: room #}
 function onStartGame(data) {
   // TODO: deal cards
 
+  var player_list = rooms[data.room].players
   // randomize player order
+  var player_cards = [];
   shuffle(rooms[data.room].players);
 
+// for every player in game deal 10 cards form answer_cards
+  for (var player in player_list) {
+    for (var i = 0; i < 9; i++) {
+      player_cards.push(rooms[data.room].answer_cards.pop());
+    }
+    // send cards to player
+      io.sockets.connected[player_list[player].id].emit('cards', player_cards);
+  }
   console.log(data.room + " is ready to start the game.");
   io.sockets.to(data.room).emit('gameStarted',
                                 { players: rooms[data.room].players });
