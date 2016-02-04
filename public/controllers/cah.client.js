@@ -10,6 +10,7 @@
       socket.on('connected', IO.onConnected);
       socket.on('newGameCreated', IO.onNewGameCreated);
       socket.on('playerJoinedGame', IO.onPlayerJoinedGame);
+      socket.on('cards', IO.onCards);
       socket.on('gameStarted', IO.onGameStarted);
     },
     onConnected: function(data) {
@@ -17,7 +18,6 @@
       game.loadStartDisplay();
     },
     onNewGameCreated: function(data) {
-      console.log(data);
       game.gameID = data.gameID;
       game.mySocketID = data.mySocketID;
       if (game.myName === '') {
@@ -39,6 +39,11 @@
         $("#players-list").append("<li>" + list[name] + "</li>");
         }
     },
+    onCards: function(data){
+
+      game.myPlayerCards = data;
+      console.log(game.myPlayerCards);
+    },
     onGameStarted: function(data) {
       if (game.myName === 'host') {
         game.loadHostDisplay(data);
@@ -54,6 +59,8 @@
     myName: '',
     myRole: '',
     gameID: '',
+    myCzarCards: '',
+    myPlayerCards: '',
 
     // Display loading functions
     loadStartDisplay: function() {
