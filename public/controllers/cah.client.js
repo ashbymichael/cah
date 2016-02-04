@@ -42,6 +42,7 @@
     onCards: function(data){
 
       game.myPlayerCards = data;
+      console.log(game.myPlayerCards);
     },
     onGameStarted: function(data) {
       if (game.myName === 'host') {

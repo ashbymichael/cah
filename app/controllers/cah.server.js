@@ -53,8 +53,6 @@ function onPlayerWantsToJoinGame(data) {
 
 // at this point data is {room: room #}
 function onStartGame(data) {
-  // TODO: deal cards
-
   var player_list = rooms[data.room].players
   // randomize player order
   var player_cards = [];
@@ -63,6 +61,7 @@ function onStartGame(data) {
 // for every player in game deal 10 cards form answer_cards
   for (var player in player_list) {
     for (var i = 0; i < 9; i++) {
+      // TODO: randomize card drawing
       player_cards.push(rooms[data.room].answer_cards.pop());
     }
     // send cards to player
