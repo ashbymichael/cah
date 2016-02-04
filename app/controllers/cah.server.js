@@ -6,7 +6,7 @@ var io,
 
 // sets up the event listeners for Socket.io
 exports.initConnect = function(sio, socket) {
-  io = sio;  //why do wwe need this ????????
+  io = sio;  
   gameSocket = socket;
   gameSocket.emit('connected', {message: "You're connected!"});
   gameSocket.on('createNewGame', onCreateNewGame);
@@ -54,8 +54,8 @@ function onPlayerWantsToJoinGame(data) {
 // at this point data is {room: room #}
 function onStartGame(data) {
   var player_list = rooms[data.room].players
-  // randomize player order
   var player_cards = [];
+  // randomize player order
   shuffle(rooms[data.room].players);
 
 // for every player in game deal 10 cards form answer_cards
