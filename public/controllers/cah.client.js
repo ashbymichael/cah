@@ -40,9 +40,13 @@
         }
     },
     onCards: function(data){
-
+      if (game.myPlayerCards.length === 0){
       game.myPlayerCards = data;
-      console.log(game.myPlayerCards);
+    } else {
+      game.myPlayerCards = [];
+      game.myPlayerCards = data;
+    }
+
     },
     onGameStarted: function(data) {
       if (game.myName === 'host') {
@@ -103,8 +107,12 @@
         $('#player-order-list').append("<li>" + data.players[player] + "</li>");
       }
     },
-    loadPlayerDisplay: function(data) {
+    loadPlayerDisplay: function(data) { //data at this point is just room number
       $('#main-console').html($('#player-display').html());
+      console.log(game.myPlayerCards);
+      for (var card in game.myPlayerCards) {
+        $("#cards-hand-ul").append("<li>" + game.myPlayerCards[card].text + "</li>");
+      }
     }
   }
 

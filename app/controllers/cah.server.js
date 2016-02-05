@@ -6,7 +6,7 @@ var io,
 
 // sets up the event listeners for Socket.io
 exports.initConnect = function(sio, socket) {
-  io = sio;  
+  io = sio;
   gameSocket = socket;
   gameSocket.emit('connected', {message: "You're connected!"});
   gameSocket.on('createNewGame', onCreateNewGame);
@@ -53,6 +53,7 @@ function onPlayerWantsToJoinGame(data) {
 
 // at this point data is {room: room #}
 function onStartGame(data) {
+  console.log(data);
   var player_list = rooms[data.room].players
   var player_cards = [];
   // randomize player order
@@ -60,12 +61,13 @@ function onStartGame(data) {
 
 // for every player in game deal 10 cards form answer_cards
   for (var player in player_list) {
+
     for (var i = 0; i < 9; i++) {
       // TODO: randomize card drawing
-      player_cards.push(rooms[data.room].answer_cards.pop());
+      player_cards.push(shuffle(rooms[data.room].answer_cards).pop());
     }
     // send cards to player
-      io.sockets.connected[player_list[player].id].emit('cards', player_cards);
+    io.sockets.connected[player_list[player].id].emit('cards', player_cards);
   }
   console.log(data.room + " is ready to start the game.");
   io.sockets.to(data.room).emit('gameStarted',
