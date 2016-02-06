@@ -19,11 +19,15 @@
       game.loadStartDisplay();
     },
     onSetReturn: function(data) {
-      socket.emit("setReturn received by client");
-      console.log("I heard setReturn");
+      // socket.emit("setReturn received by client");
+
       console.log(data);
       var cookieName = readCookie('name');
       console.log("My cookie name: " + cookieName);
+
+      if (data && data.name === cookieName) {
+        console.log("I heard setReturn");
+      }
     },
     onNewGameCreated: function(data) {
       game.gameID = data.gameID;
