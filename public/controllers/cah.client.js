@@ -8,6 +8,7 @@
     },
     bindEvents: function() {
       socket.on('connected', IO.onConnected);
+      socket.on('setReturn', IO.onSetReturn);
       socket.on('newGameCreated', IO.onNewGameCreated);
       socket.on('playerJoinedGame', IO.onPlayerJoinedGame);
       socket.on('cards', IO.onCards);
@@ -16,6 +17,10 @@
     onConnected: function(data) {
       console.log("hey: " + data.message);
       game.loadStartDisplay();
+    },
+    onSetReturn: function(data) {
+      console.log("setReturn received by client");
+      console.log(data);
     },
     onNewGameCreated: function(data) {
       game.gameID = data.gameID;

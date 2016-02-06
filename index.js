@@ -21,6 +21,7 @@ app.get('/', function(req, res) {
 
   if (req.cookies.name) {
     console.log(req.cookies.name + " recognized.");
+    cah.onReturn(req.cookies);
   }
 
   res.sendFile(__dirname + '/index.html');

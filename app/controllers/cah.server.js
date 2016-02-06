@@ -6,12 +6,21 @@ var io,
 
 // sets up the event listeners for Socket.io
 exports.initConnect = function(sio, socket) {
-  io = sio;  
+  io = sio;
   gameSocket = socket;
   gameSocket.emit('connected', {message: "You're connected!"});
   gameSocket.on('createNewGame', onCreateNewGame);
   gameSocket.on('playerWantsToJoinGame', onPlayerWantsToJoinGame);
   gameSocket.on('startGame', onStartGame);
+};
+
+exports.onReturn = function(cookies) {
+  console.log("onReturn hit");
+  console.log("id: " + gameSocket.id);
+  console.log("connected: \n" + io.sockets.connected);
+  io.sockets.connected[gameSocket.id].emit('setReturn',
+                                    { name: cookies.name, game: cookies.game });
+  // this.emit('playerReturned', { name: cookies.name, game: cookies.game });
 }
 
 function onCreateNewGame() {
