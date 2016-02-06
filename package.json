@@ -1,7 +1,13 @@
 {
   "name": "cah",
-  "version": "",
+  "version": "0.0.a",
   "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashbymichael/cah"
+  },
+  "license": "MIT",
   "dependencies": {
     "cah-cards": "^0.1.0",
     "cookie-parser": "^1.4.1",
