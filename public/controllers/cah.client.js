@@ -19,8 +19,11 @@
       game.loadStartDisplay();
     },
     onSetReturn: function(data) {
-      console.log("setReturn received by client");
+      socket.emit("setReturn received by client");
+      console.log("I heard setReturn");
       console.log(data);
+      var cookieName = readCookie('name');
+      console.log("My cookie name: " + cookieName);
     },
     onNewGameCreated: function(data) {
       game.gameID = data.gameID;
@@ -111,6 +114,17 @@
     loadPlayerDisplay: function(data) {
       $('#main-console').html($('#player-display').html());
     }
-  }
+  };
+
+  function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+  };
 
 })(jQuery);

@@ -1,8 +1,9 @@
 var io,
     gameSocket,
-    rooms = {},
-    questions = require("cah-cards/questions"),
-    answers = require("cah-cards/answers");
+    rooms     = {},
+    questions = require('cah-cards/questions'),
+    answers   = require('cah-cards/answers'),
+    util      = require('util');
 
 // sets up the event listeners for Socket.io
 exports.initConnect = function(sio, socket) {
@@ -12,14 +13,20 @@ exports.initConnect = function(sio, socket) {
   gameSocket.on('createNewGame', onCreateNewGame);
   gameSocket.on('playerWantsToJoinGame', onPlayerWantsToJoinGame);
   gameSocket.on('startGame', onStartGame);
+  gameSocket.on('setReturn received by client', onSetReturn);
 };
+
+function onSetReturn() {
+  console.log("client received setReturn");
+}
 
 exports.onReturn = function(cookies) {
   console.log("onReturn hit");
   console.log("id: " + gameSocket.id);
   console.log("connected: \n" + io.sockets.connected);
+  // console.log(util.inspect(io.sockets.connected[gameSocket.id], {showHidden: false, depth: null}));
   io.sockets.connected[gameSocket.id].emit('setReturn',
-                                    { name: cookies.name, game: cookies.game });
+                            { name: cookies.name, game: cookies.game });
   // this.emit('playerReturned', { name: cookies.name, game: cookies.game });
 }
 
