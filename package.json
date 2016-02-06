@@ -1,6 +1,6 @@
 {
   "name": "cah",
-  "version": "0.0.a",
+  "version": "",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "cah-cards": "^0.1.0",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.3",

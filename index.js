@@ -23,6 +23,7 @@ app.get('/join', function(req, res) {
 
 app.post('/join', function(req, res) {
   console.log("join form received");
+  res.cookie('joined', 'true');
   res.redirect(303, '/');
 });
 
