@@ -10,7 +10,6 @@ var express    = require('express'),
 app.use(express.static('public'));
 app.use(require('cookie-parser')('c)378fHR37!mfVJ30vn28S938BMjrn'));
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.text({ type: 'text/html' }));
 
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
@@ -27,10 +26,8 @@ app.get('/join', function(req, res) {
 
 app.post('/join', function(req, res) {
   console.log("join form received");
-  console.log(req.body);
   res.cookie('name', req.body.name);
   res.cookie('game', req.body.game);
-  // res.cookie('joined', 'true');
   res.redirect(303, '/');
 });
 
