@@ -2,8 +2,7 @@
 (function($) {
   'use strict';
   var IO,
-      game,
-      cookieName;
+      game;
 
   IO = {
     init: function() {
@@ -11,7 +10,6 @@
     },
     bindEvents: function() {
       socket.on('connected', IO.onConnected);
-      socket.on('setReturn', IO.onSetReturn);
       socket.on('newGameCreated', IO.onNewGameCreated);
       socket.on('playerJoinedGame', IO.onPlayerJoinedGame);
       socket.on('cards', IO.onCards);
@@ -21,31 +19,21 @@
       console.log("hey: " + data.message);
       game.loadStartDisplay();
 
-      // check for cookie.  if present, run onSetReturn (which will become setReturn if successful)
-      cookieName = readCookie('name');
-      if (cookieName) {
-        console.log("cookie name: " + cookieName);
-        game.myName = cookieName;
-      };
-      console.log("my name: " + game.myName);
+      // check for cookie.  if present, run setReturn
+      if (readCookie('name')) IO.setReturn();
+      if (game.myName) console.log("my name: " + game.myName);
+      if (game.gameID) console.log("my game: " + game.gameID);
     },
-    onSetReturn: function(data) {
-      // socket.emit("setReturn received by client");
-
-      console.log(data);
-      var cookieName = readCookie('name');
-      console.log("My cookie name: " + cookieName);
-
-      if (data && data.name === cookieName) {
-        console.log("I heard setReturn");
-      }
+    setReturn: function() {
+      game.myName = readCookie('name');
+      game.gameID = readCookie('game');
+      // Check for previous game.  If present, rejoin.
+      socket.emit('playerWantsToJoinGame',
+                  { playerName: game.myName, gameID: game.gameID });
     },
     onNewGameCreated: function(data) {
       game.gameID = data.gameID;
       game.mySocketID = data.mySocketID;
-      if (game.myName === '') {
-        game.myName = "host";
-      }
 
       game.loadHostWaitingDisplay();
       $('#waiting-game-id').text(data.gameID);
@@ -53,6 +41,7 @@
     onPlayerJoinedGame: function(data) {
       console.log(socket);
       console.log(data.playerName + ' joined. please wait.');
+      game.loadPlayerWaitingDisplay();
       $("#waiting-players-count").text(data.numOfPlayer);
 
       // displays the list of player in the game
@@ -136,8 +125,10 @@
     var ca = document.cookie.split(';');
     for(var i=0;i < ca.length;i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        while (c.charAt(0) == ' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) {
+          return c.substring(nameEQ.length,c.length);
+        }
     }
     return null;
   };
