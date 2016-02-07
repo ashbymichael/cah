@@ -17,8 +17,6 @@ app.get('/', function(req, res) {
   app.use(express.static(__dirname + '/app'));
   app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
-  // console.log(req.cookies);
-
   if (req.cookies.name) {
     console.log(req.cookies.name + " recognized.");
     cah.onReturn(req.cookies);

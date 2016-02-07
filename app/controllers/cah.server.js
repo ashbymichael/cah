@@ -18,7 +18,6 @@ exports.initConnect = function(sio, socket) {
 exports.onReturn = function(cookies) {
   console.log("onReturn hit");
   console.log("id: " + gameSocket.id);
-  console.log("connected: \n" + io.sockets.connected);
   io.sockets.emit('setReturn', { name: cookies.name, game: cookies.game });
 }
 

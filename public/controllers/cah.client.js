@@ -1,8 +1,11 @@
 ;
 (function($) {
   'use strict';
+  var IO,
+      game,
+      cookieName;
 
-  var IO = {
+  IO = {
     init: function() {
       IO.bindEvents();
     },
@@ -17,6 +20,14 @@
     onConnected: function(data) {
       console.log("hey: " + data.message);
       game.loadStartDisplay();
+
+      // check for cookie.  if present, run onSetReturn (which will become setReturn if successful)
+      cookieName = readCookie('name');
+      if (cookieName) {
+        console.log("cookie name: " + cookieName);
+        game.myName = cookieName;
+      };
+      console.log("my name: " + game.myName);
     },
     onSetReturn: function(data) {
       // socket.emit("setReturn received by client");
@@ -63,11 +74,11 @@
         game.loadPlayerDisplay(data);
       }
     }
-  }
+  };
 
   IO.init();
 
-  var game = {
+  game = {
     myName: '',
     myRole: '',
     gameID: '',
