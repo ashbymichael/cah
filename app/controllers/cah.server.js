@@ -1,17 +1,24 @@
 var io,
     gameSocket,
-    rooms = {},
-    questions = require("cah-cards/questions"),
-    answers = require("cah-cards/answers");
+    rooms     = {},
+    questions = require('cah-cards/questions'),
+    answers   = require('cah-cards/answers'),
+    util      = require('util');
 
 // sets up the event listeners for Socket.io
 exports.initConnect = function(sio, socket) {
-  io = sio;  
+  io = sio;
   gameSocket = socket;
   gameSocket.emit('connected', {message: "You're connected!"});
   gameSocket.on('createNewGame', onCreateNewGame);
   gameSocket.on('playerWantsToJoinGame', onPlayerWantsToJoinGame);
   gameSocket.on('startGame', onStartGame);
+};
+
+exports.onReturn = function(cookies) {
+  console.log("onReturn hit");
+  console.log("id: " + gameSocket.id);
+  // io.sockets.emit('setReturn', { name: cookies.name, game: cookies.game });
 }
 
 function onCreateNewGame() {

@@ -1,8 +1,10 @@
 ;
 (function($) {
   'use strict';
+  var IO,
+      game;
 
-  var IO = {
+  IO = {
     init: function() {
       IO.bindEvents();
     },
@@ -16,13 +18,22 @@
     onConnected: function(data) {
       console.log("hey: " + data.message);
       game.loadStartDisplay();
+
+      // check for cookie.  if present, run setReturn
+      if (readCookie('name')) IO.setReturn();
+      if (game.myName) console.log("my name: " + game.myName);
+      if (game.gameID) console.log("my game: " + game.gameID);
+    },
+    setReturn: function() {
+      game.myName = readCookie('name');
+      game.gameID = readCookie('game');
+      // Check for previous game.  If present, rejoin.
+      socket.emit('playerWantsToJoinGame',
+                  { playerName: game.myName, gameID: game.gameID });
     },
     onNewGameCreated: function(data) {
       game.gameID = data.gameID;
       game.mySocketID = data.mySocketID;
-      if (game.myName === '') {
-        game.myName = "host";
-      }
 
       game.loadHostWaitingDisplay();
       $('#waiting-game-id').text(data.gameID);
@@ -30,6 +41,7 @@
     onPlayerJoinedGame: function(data) {
       console.log(socket);
       console.log(data.playerName + ' joined. please wait.');
+      game.loadPlayerWaitingDisplay();
       $("#waiting-players-count").text(data.numOfPlayer);
 
       // displays the list of player in the game
@@ -51,11 +63,11 @@
         game.loadPlayerDisplay(data);
       }
     }
-  }
+  };
 
   IO.init();
 
-  var game = {
+  game = {
     myName: '',
     myRole: '',
     gameID: '',
@@ -106,6 +118,19 @@
     loadPlayerDisplay: function(data) {
       $('#main-console').html($('#player-display').html());
     }
-  }
+  };
+
+  function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) {
+          return c.substring(nameEQ.length,c.length);
+        }
+    }
+    return null;
+  };
 
 })(jQuery);
