@@ -51,7 +51,7 @@ function onPlayerWantsToJoinGame(data) {
   var sock = this;
   sock.join(data.gameID);
   name = data.playerName
-  rooms[data.gameID].players.push({id: this.id, player_name: name, hand: []});
+  rooms[data.gameID].players.push({id: this.id, player_name: name, hand: [], points: 0});
   data["rooms"] = rooms;
   data["numOfPlayer"] = io.nsps['/'].adapter.rooms[data.gameID].length - 1;
   console.log(this.adapter.rooms[data.gameID].sockets);
