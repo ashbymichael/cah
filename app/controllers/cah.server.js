@@ -87,7 +87,7 @@ function onStartGame(data) {
   // }
 
   for (var players in player_list) {
-    player.hand = game.deal_cards_to_players({player: player, answer_cards: rooms[data.rooms].answer_cards });
+    player.hand = game.deal_cards_to_player({player: player, answer_cards: rooms[data.rooms].answer_cards });
 
     io.sockets.connected[player_list[player].id].emit('cards', player_list[player].hand);
   };
