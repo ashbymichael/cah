@@ -28,7 +28,7 @@ app.get('/', function(req, res) {
     // cah.onReturn(req.cookies);
   }
 
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/app/views/index.html');
 });
 
 app.get('/join', function(req, res) {
