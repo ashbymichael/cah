@@ -56,7 +56,7 @@ function onPlayerWantsToJoinGame(data) {
   data["numOfPlayer"] = io.nsps['/'].adapter.rooms[data.gameID].length - 1;
   console.log(this.adapter.rooms[data.gameID].sockets);
   io.sockets.to(data.gameID).emit('playerJoinedGame', data);
-  console.log("------------------------------------------------------------");
+  console.log(Array(60).join("-"));
 };
 
 // at this point data is {room: room #}
