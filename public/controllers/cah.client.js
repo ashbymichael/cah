@@ -1,4 +1,8 @@
-;
+/*
+This file is tided to Socket.io lifecycle called from the index.js flie ....???
+loads the client view...
+*/
+
 (function($) {
   'use strict';
   var IO,
@@ -49,8 +53,8 @@
       // displays the list of player in the game
       var list = data.rooms[data.gameID].players ;
         $("#players-list").empty();
-        for (var name in list) {
-        $("#players-list").append("<li>" + list[name] + "</li>");
+        for (var player_obj in list) {
+        $("#players-list").append("<li>" + list[player_obj].player_name + "</li>");
         }
     },
     onCards: function(data){

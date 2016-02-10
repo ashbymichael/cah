@@ -1,3 +1,7 @@
+/*
+This file is called by index.js. Here we set up the Socket.io interface and also establish the application lifecycle with promises.callbacks
+*/
+
 var io,
     gameSocket,
     rooms     = {},
