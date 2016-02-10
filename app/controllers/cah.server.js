@@ -15,11 +15,11 @@ exports.initConnect = function(sio, socket) {
   gameSocket.on('startGame', onStartGame);
 };
 
-exports.onReturn = function(cookies) {
-  console.log("onReturn hit");
-  console.log("id: " + gameSocket.id);
-  // io.sockets.emit('setReturn', { name: cookies.name, game: cookies.game });
-}
+// exports.onReturn = function(cookies) {
+//   console.log("onReturn hit");
+//   console.log("id: " + gameSocket.id);
+//   // io.sockets.emit('setReturn', { name: cookies.name, game: cookies.game });
+// }
 
 function onCreateNewGame() {
   var thisGameID = parseInt(Math.random() * 10000, 10);

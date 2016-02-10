@@ -36,6 +36,8 @@
       game.mySocketID = data.mySocketID;
 
       game.loadHostWaitingDisplay();
+      console.log("name: " + game.myName);
+      console.log("game: " + game.gameID);
       $('#waiting-game-id').text(data.gameID);
     },
     onPlayerJoinedGame: function(data) {
@@ -110,8 +112,10 @@
       })
     },
     loadPlayerWaitingDisplay: function() {
-      $('#main-console').html($('#player-waiting-display').html());
-      $('#waiting-game-id').html(game.gameID);
+      if (game.myRole !== 'host') {
+        $('#main-console').html($('#player-waiting-display').html());
+        $('#waiting-game-id').html(game.gameID);
+      }
     },
     loadHostDisplay: function(data) {
       $('#main-console').html($('#host-display').html());
