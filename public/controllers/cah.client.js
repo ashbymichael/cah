@@ -53,8 +53,13 @@ loads the client view...
       // displays the list of player in the game
       var list = data.rooms[data.gameID].players ;
         $("#players-list").empty();
+<<<<<<< HEAD
         for (var player_obj in list) {
         $("#players-list").append("<li>" + list[player_obj].player_name + "</li>");
+=======
+        for (var name in list) {
+        $("#players-list").append("<li>" + list[name].player_name + "</li>");
+>>>>>>> c8a675a7274d6e7a2fc9373b8d8715c78d3696ba
         }
     },
     onCards: function(data){

@@ -13,7 +13,8 @@
     "cah-cards": "^0.1.0",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.3",
-    "socket.io": "^1.4.4"
+    "socket.io": "^1.4.4",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "mocha": "^2.3.4",

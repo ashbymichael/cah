@@ -7,7 +7,8 @@ var io,
     rooms     = {},
     questions = require('cah-cards/questions'),
     answers   = require('cah-cards/answers'),
-    util      = require('util');
+    util      = require('util'),
+    _ = require("underscore");
 
 // sets up the event listeners for Socket.io
 exports.initConnect = function(sio, socket) {
@@ -66,16 +67,15 @@ function onPlayerWantsToJoinGame(data) {
 function onStartGame(data) {
   console.log(data);
   var player_list = rooms[data.room].players
-  // var player_cards = [];
   // randomize player order
-  shuffle(rooms[data.room].players);
+  player_list = _.shuffle(rooms[data.room].players);
 
 // for every player in game deal 10 cards form answer_cards
   for (var player in player_list) {
 
     for (var i = 0; i < 9; i++) {
       // TODO: randomize card drawing
-      player_list[player].hand.push(shuffle(rooms[data.room].answer_cards).pop());
+      player_list[player].hand.push(_.shuffle(rooms[data.room].answer_cards).pop());
     }
     // send cards to player
     io.sockets.connected[player_list[player].id].emit('cards', player_list[player].hand);
@@ -84,9 +84,4 @@ function onStartGame(data) {
   console.log(rooms[data.room].players);
   io.sockets.to(data.room).emit('gameStarted',
                                 { players: rooms[data.room].players });
-}
-
-function shuffle(arr){
-    for(var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
-    return arr;
 }

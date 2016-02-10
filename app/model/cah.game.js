@@ -6,11 +6,11 @@ This is the game object which sould house all of the game logic dealing, playein
 var questions = require('cah-cards/questions');
 var answers   = require('cah-cards/answers');
 
-function shuffle_players(players){
+export.shuffle_players = function(players){
   return shuffle(players);
 };
 
-function answer_deck(){
+export.answer_deck = function(){
   deck = [];
   for(answer in answers){
       deck.push(answers[answer]);
@@ -18,7 +18,7 @@ function answer_deck(){
   return deck;
 };
 
-function question_deck(){
+export.question_deck = function(){
   deck = [];
   for(question in questions){
       deck.push(questions[question]);
@@ -26,14 +26,14 @@ function question_deck(){
   return deck;
 };
 
-function throw_away_deck(cards_to_be_discarded){
+export.throw_away_deck = function(cards_to_be_discarded){
   deck = [];
   return deck;
 }
 
 // players_n_answerDeck is an object/hash with players
 // and the current games answer_deck passed in
-function deal_cards_to_players(players_n_answerDeck){
+export.deal_cards_to_players = function(players_n_answerDeck){
 
   answer_cards = players_n_answerDeck.answer_deck;
   players = players_n_answerDeck.players;
@@ -52,7 +52,7 @@ function deal_cards_to_players(players_n_answerDeck){
 };
 
 // not sure we need to keep track of discard pile of answers
-function throw_away_card(discarded_cards_n_throw_away_deck){
+export.throw_away_card = function(discarded_cards_n_throw_away_deck){
 
   discarded_cards = discarded_cards_n_throw_away_deck.cards;
   throw_away_deck = discarded_cards_n_throw_away_deck.throw_away_cards;
@@ -64,7 +64,7 @@ function throw_away_card(discarded_cards_n_throw_away_deck){
   return throw_away_deck;
 
 };
-function question_discard(card_n_discard_deck){
+export.question_discard = function(card_n_discard_deck){
 
   discard_deck = card_n_discard_deck.deck;
   card = card_n_discard_deck.card;
