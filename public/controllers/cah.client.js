@@ -50,7 +50,7 @@
       var list = data.rooms[data.gameID].players ;
         $("#players-list").empty();
         for (var name in list) {
-        $("#players-list").append("<li>" + list[name] + "</li>");
+        $("#players-list").append("<li>" + list[name].player_name + "</li>");
         }
     },
     onCards: function(data){
