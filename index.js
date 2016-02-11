@@ -1,3 +1,9 @@
+/*
+This is the frst place the application loads this file handles the routes and sets up the use of cookies, and application dependent resources
+
+*/
+
+
 var express    = require('express'),
 
     app        = express(),                // create a new express application

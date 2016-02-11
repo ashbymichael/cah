@@ -1,4 +1,8 @@
-;
+/*
+This file is tided to Socket.io lifecycle called from the index.js flie ....???
+loads the client view...
+*/
+
 (function($) {
   'use strict';
   var IO,
@@ -16,7 +20,6 @@
       socket.on('gameStarted', IO.onGameStarted);
     },
     onConnected: function(data) {
-      console.log("hey: " + data.message);
       game.loadStartDisplay();
 
       // check for cookie.  if present, run setReturn
@@ -36,13 +39,9 @@
       game.mySocketID = data.mySocketID;
 
       game.loadHostWaitingDisplay();
-      console.log("name: " + game.myName);
-      console.log("game: " + game.gameID);
       $('#waiting-game-id').text(data.gameID);
     },
     onPlayerJoinedGame: function(data) {
-      console.log(socket);
-      console.log(data.playerName + ' joined. please wait.');
       game.loadPlayerWaitingDisplay();
       $("#waiting-players-count").text(data.numOfPlayer);
 
@@ -51,7 +50,7 @@
         $("#players-list").empty();
         for (var name in list) {
         $("#players-list").append("<li>" + list[name].player_name + "</li>");
-        }
+      }
     },
     onCards: function(data){
       if (game.myPlayerCards.length === 0){
@@ -84,12 +83,10 @@
     loadStartDisplay: function() {
       $('#main-console').html($('#start-display').html());
       $('#create-game-button').click(function() {
-        console.log('create game clicked')
         game.myRole = 'host';
         socket.emit('createNewGame');
       });
       $('#join-game-button').click(function() {
-        console.log('join button clicked');
         game.myRole = 'player';
         game.loadJoinDisplay();
       });
@@ -125,7 +122,6 @@
     },
     loadPlayerDisplay: function(data) { //data at this point is just room number
       $('#main-console').html($('#player-display').html());
-      console.log(game.myPlayerCards);
       for (var card in game.myPlayerCards) {
         $("#cards-hand-ul").append("<li>" + game.myPlayerCards[card].text + "</li>");
       }
