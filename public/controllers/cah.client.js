@@ -20,7 +20,6 @@ loads the client view...
       socket.on('gameStarted', IO.onGameStarted);
     },
     onConnected: function(data) {
-      console.log("hey: " + data.message);
       game.loadStartDisplay();
 
       // check for cookie.  if present, run setReturn
@@ -40,26 +39,17 @@ loads the client view...
       game.mySocketID = data.mySocketID;
 
       game.loadHostWaitingDisplay();
-      console.log("name: " + game.myName);
-      console.log("game: " + game.gameID);
       $('#waiting-game-id').text(data.gameID);
     },
     onPlayerJoinedGame: function(data) {
-      console.log(socket);
-      console.log(data.playerName + ' joined. please wait.');
       game.loadPlayerWaitingDisplay();
       $("#waiting-players-count").text(data.numOfPlayer);
 
       // displays the list of player in the game
       var list = data.rooms[data.gameID].players ;
         $("#players-list").empty();
-<<<<<<< HEAD
         for (var player_obj in list) {
         $("#players-list").append("<li>" + list[player_obj].player_name + "</li>");
-=======
-        for (var name in list) {
-        $("#players-list").append("<li>" + list[name].player_name + "</li>");
->>>>>>> c8a675a7274d6e7a2fc9373b8d8715c78d3696ba
         }
     },
     onCards: function(data){
@@ -93,12 +83,10 @@ loads the client view...
     loadStartDisplay: function() {
       $('#main-console').html($('#start-display').html());
       $('#create-game-button').click(function() {
-        console.log('create game clicked')
         game.myRole = 'host';
         socket.emit('createNewGame');
       });
       $('#join-game-button').click(function() {
-        console.log('join button clicked');
         game.myRole = 'player';
         game.loadJoinDisplay();
       });
@@ -134,7 +122,6 @@ loads the client view...
     },
     loadPlayerDisplay: function(data) { //data at this point is just room number
       $('#main-console').html($('#player-display').html());
-      console.log(game.myPlayerCards);
       for (var card in game.myPlayerCards) {
         $("#cards-hand-ul").append("<li>" + game.myPlayerCards[card].text + "</li>");
       }

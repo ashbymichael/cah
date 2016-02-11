@@ -7,11 +7,11 @@ var questions = require('cah-cards/questions'),
     answers = require('cah-cards/answers'),
     _ = require("underscore");
 
-function shuffle_players(players){
+exports.shuffle_players = function(players){
   return _.shuffle(players);
-};
+}
 
-function answer_deck(){
+exports.answer_deck = function(){
   deck = [];
   for(answer in answers){
       deck.push(answers[answer]);
@@ -19,7 +19,7 @@ function answer_deck(){
   return deck;
 };
 
-function question_deck(){
+exports.question_deck = function(){
   deck = [];
   for(question in questions){
       deck.push(questions[question]);
@@ -34,21 +34,22 @@ function throw_away_deck(cards_to_be_discarded){
 
 // players_n_answerDeck is an object/hash with players
 // and the current games answer_deck passed in
-function deal_cards_to_player(player_n_answerDeck){
+exports.deal_cards_to_player = function(player_n_deck){
 
-  answer_cards = players_n_answerDeck.answer_deck;
-  player = players_n_answerDeck.player;
+  answer_cards = player_n_deck.cards;
+  players = player_n_deck.list;
+  for (var player in players) {
 
     for (var i = 0; i < 9; i++) {
       // TODO: randomize card drawing
-      the_card = _.shuffle(rooms[data.room].answer_cards).pop()
+      the_card = _.shuffle(answer_cards).pop()
       the_card["owner"] = players[player].id //potential issue with multi games
-      player.hand.push(the_card);
-    }
+      players[player].hand.push(the_card);
+    };
+  };
 
-    current_player_n_answers_deck = {player: player, answer_deck: answer_cards};
-      // returns the players and current answer_deck after dealing
-      return current_player_n_answers_deck;
+      // returns current answer_deck after dealing
+      return answer_cards;
 };
 
 // not sure we need to keep track of discard pile of answers
