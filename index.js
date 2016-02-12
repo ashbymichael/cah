@@ -42,6 +42,14 @@ app.post('/join', function(req, res) {
   res.redirect(303, '/');
 });
 
+
+app.post('/round/*', function(req, res){
+  if (req.path != '/^\d+$/') {
+    console.log("no such path/page!!!");
+  } else {
+  console.log("new round");
+  };
+});
 // called when a client/user connects to the application via Socket.IO
 io.on('connection', function(socket){
   console.log("a user connected");

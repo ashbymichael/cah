@@ -62,8 +62,14 @@ loads the client view...
 
     },
     onGameStarted: function(data) {
-      if (game.myName === 'host') {
+      console.log(data);
+      if (data.current_czar.player_name === game.myName){
+        game.myRole = 'czar';
+      }
+      if (game.myRole === 'host') {
         game.loadHostDisplay(data);
+      } else if(game.myRole === 'czar'){
+        game.loadCardCzarDisplay(data);
       } else {
         game.loadPlayerDisplay(data);
       }
@@ -116,14 +122,19 @@ loads the client view...
     },
     loadHostDisplay: function(data) {
       $('#main-console').html($('#host-display').html());
+      $('#question-card-div').append("<p class='question'>" + data.question_card.text + "</p>")
       for (var player in data.players) {
-        $('#player-order-list').append("<li>" + data.players[player] + "</li>");
+        $('#player-order-list').append("<li>" + data.players[player].player_name + "</li>");
       }
+    },
+    loadCardCzarDisplay: function(data){
+      $('#main-console').html($('#czar-display').html());
+      $('#question-card-div').append("<p class='question'>" + data.question_card.text + "</p>")
     },
     loadPlayerDisplay: function(data) { //data at this point is just room number
       $('#main-console').html($('#player-display').html());
       for (var card in game.myPlayerCards) {
-        $("#cards-hand-ul").append("<li>" + game.myPlayerCards[card].text + "</li>");
+        $("#cards-hand-ul").append("<li class='card-list'><button class='card-button'>" + game.myPlayerCards[card].text + "</button></li>");
       }
     }
   };

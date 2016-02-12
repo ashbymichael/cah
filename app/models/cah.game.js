@@ -74,10 +74,10 @@ function question_discard(card_n_discard_deck){
   return discard_deck;
 
 }
-function pick_winner(answer_n_question_cards){
+function pick_winner(answers_n_question_cards){
 
   answer_card = answer_n_question_cards.answer_card
-  winner = answer_n_question_cards.question_card
+  winner = answer_card.owner
   // returns winning player
   return winner.owner     //potential depedency issue... maybe?
 
