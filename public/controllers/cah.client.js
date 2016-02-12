@@ -62,8 +62,14 @@ loads the client view...
 
     },
     onGameStarted: function(data) {
+      console.log(data);
+      if (data.current_czar.player_name === game.myName){
+        game.myRole = 'czar';
+      }
       if (game.myRole === 'host') {
         game.loadHostDisplay(data);
+      } else if(game.myRole === 'czar'){
+        game.loadCardCzarDisplay(data);
       } else {
         game.loadPlayerDisplay(data);
       }
@@ -120,6 +126,10 @@ loads the client view...
       for (var player in data.players) {
         $('#player-order-list').append("<li>" + data.players[player].player_name + "</li>");
       }
+    },
+    loadCardCzarDisplay: function(data){
+      $('#main-console').html($('#czar-display').html());
+      $('#question-card-div').append("<p class='question'>" + data.question_card.text + "</p>")
     },
     loadPlayerDisplay: function(data) { //data at this point is just room number
       $('#main-console').html($('#player-display').html());
