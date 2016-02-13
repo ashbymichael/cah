@@ -38,7 +38,8 @@ function onCreateNewGame() {
     question_cards: [],
     answer_cards: [],
     current_czar: {},
-    current_question: {}
+    current_question: {},
+    played_cards: []
    };
    rooms[thisGameID].question_cards = game.question_deck();
    rooms[thisGameID].answer_cards = game.answer_deck();
