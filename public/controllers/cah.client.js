@@ -130,6 +130,11 @@ loads the client view...
     loadCardCzarDisplay: function(data){
       $('#main-console').html($('#czar-display').html());
       $('#question-card-div').append("<p class='question'>" + data.question_card.text + "</p>")
+      if(data.played_cards.length != data.players.length){
+        $('#pick-button').prop("disabled", "true");
+      } else {
+        $('#pick-button').prop("disable", "false");
+      }
     },
     loadPlayerDisplay: function(data) { //data at this point is just room number
       $('#main-console').html($('#player-display').html());
