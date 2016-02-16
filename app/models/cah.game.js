@@ -43,7 +43,7 @@ exports.deal_cards_to_player = function(player_n_deck){
     for (var i = 0; i < 9; i++) {
       // TODO: randomize card drawing
       the_card = _.shuffle(answer_cards).pop()
-      the_card["owner"] = players[player].id //potential issue with multi games
+      the_card["owner"] = players[player].id; //potential issue with multi games
       players[player].hand.push(the_card);
     };
   };

@@ -139,8 +139,12 @@ loads the client view...
     loadPlayerDisplay: function(data) { //data at this point is just room number
       $('#main-console').html($('#player-display').html());
       for (var card in game.myPlayerCards) {
-        $("#cards-hand-ul").append("<li class='card-list'><button class='card-button'>" + game.myPlayerCards[card].text + "</button></li>");
-      }
+        $("#cards-hand-ul").append("<li class='card-list'><button class='card-button' id='" + game.myPlayerCards[card].id + "''>" + game.myPlayerCards[card].text + "</button></li>");
+      };
+      $('.card-button').click(function(){
+        // need get the index of nth child
+        socket.emit('playedCard', game.myPlayerCards[card]);
+      });
     }
   };
 
