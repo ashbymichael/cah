@@ -79,12 +79,9 @@ function onStartGame(data) {
 };
 
 function onPlayedCard(data){
-  console.log("got to played card with:");
-  console.log(data.played_card);
-  // rooms[data.room].played_cards.push(data.played_card);
-  // rooms[data.room].players[data.played_card.owner].hand.pop(data.played_card);
-  // console.log(rooms[data.room].players[data.played_card.owner].hand.length);
-
+  // console.log("got to played card with:");
+   console.log(data.played_cards);
+   io.sockets.connected[data.current_czar.id].emit('reloadCzar', data);
 
 };
 
