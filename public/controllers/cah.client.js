@@ -18,11 +18,8 @@ loads the client view...
       socket.on('playerJoinedGame', IO.onPlayerJoinedGame);
       socket.on('cards', IO.onCards);
       socket.on('gameStarted', IO.onGameStarted);
-<<<<<<< HEAD
       socket.on('gameIDNotValid', IO.onGameIDNotValid);
-=======
       socket.on('reloadCzar', IO.onReloadCzar);
->>>>>>> dev
     },
     onConnected: function(data) {
       game.loadStartDisplay();
