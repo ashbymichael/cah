@@ -18,6 +18,7 @@ loads the client view...
       socket.on('playerJoinedGame', IO.onPlayerJoinedGame);
       socket.on('cards', IO.onCards);
       socket.on('gameStarted', IO.onGameStarted);
+      socket.on('gameIDNotValid', IO.onGameIDNotValid);
     },
     onConnected: function(data) {
       game.loadStartDisplay();
@@ -72,6 +73,14 @@ loads the client view...
         game.loadCardCzarDisplay(data);
       } else {
         game.loadPlayerDisplay(data);
+      }
+    },
+    onGameIDNotValid: function(data) {
+      if (game.gameID === data.gameID) {
+        console.log("Game ID not valid");
+        deleteCookie(name);
+        deleteCookie(game);
+        console.log("cookies deleted");
       }
     }
   };
@@ -156,5 +165,9 @@ loads the client view...
     }
     return null;
   };
+
+  function deleteCookie(name) {
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
 
 })(jQuery);
