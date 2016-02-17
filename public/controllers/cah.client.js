@@ -18,6 +18,7 @@ loads the client view...
       socket.on('playerJoinedGame', IO.onPlayerJoinedGame);
       socket.on('cards', IO.onCards);
       socket.on('gameStarted', IO.onGameStarted);
+      socket.on('reloadCzar', IO.onReloadCzar);
     },
     onConnected: function(data) {
       game.loadStartDisplay();
@@ -73,6 +74,10 @@ loads the client view...
       } else {
         game.loadPlayerDisplay(data);
       }
+    },
+    onReloadCzar: function(data){
+      console.log("made it to reload");
+      game.loadCardCzarDisplay(data);
     }
   };
 
@@ -130,17 +135,26 @@ loads the client view...
     loadCardCzarDisplay: function(data){
       $('#main-console').html($('#czar-display').html());
       $('#question-card-div').append("<p class='question'>" + data.question_card.text + "</p>")
-      if(data.played_cards.length != data.players.length){
+      console.log("length is: " + data.players.length);
+      console.log("player_cards is: " + data.playeed_cards.length);
+      if(data.played_cards.length != (data.players.length - 2)){
         $('#pick-button').prop("disabled", "true");
       } else {
-        $('#pick-button').prop("disable", "false");
+        $('#pick-button').prop("disabled", "false");
       }
     },
-    loadPlayerDisplay: function(data) { //data at this point is just room number
+    loadPlayerDisplay: function(data) { //data
       $('#main-console').html($('#player-display').html());
       for (var card in game.myPlayerCards) {
-        $("#cards-hand-ul").append("<li class='card-list'><button class='card-button'>" + game.myPlayerCards[card].text + "</button></li>");
-      }
+        $("#cards-hand-ul").append("<li class='card-list'><button class='card-button' id='" + card + "''>" + game.myPlayerCards[card].text + "</button></li>");
+      };
+      $('.card-button').click(function(){
+        // need get the index of nth child
+        var id = $('.card-button').attr('id')
+        data.played_cards.push(game.myPlayerCards[id]);
+        socket.emit('playedCard', data);
+      $('.card-button').prop("disabled", "true");
+      });
     }
   };
 

@@ -27,23 +27,23 @@ exports.question_deck = function(){
   return deck;
 };
 
-function throw_away_deck(cards_to_be_discarded){
+function throw_away_deck(data){
   deck = [];
   return deck;
 }
 
 // players_n_answerDeck is an object/hash with players
 // and the current games answer_deck passed in
-exports.deal_cards_to_player = function(player_n_deck){
+exports.deal_cards_to_player = function(data){
 
-  answer_cards = player_n_deck.cards;
-  players = player_n_deck.list;
+  answer_cards = data.cards;
+  players = data.list;
   for (var player in players) {
 
     for (var i = 0; i < 9; i++) {
       // TODO: randomize card drawing
       the_card = _.shuffle(answer_cards).pop()
-      the_card["owner"] = players[player].id //potential issue with multi games
+      the_card["owner"] = player; //potential issue with multi games
       players[player].hand.push(the_card);
     };
   };
@@ -53,10 +53,10 @@ exports.deal_cards_to_player = function(player_n_deck){
 };
 
 // not sure we need to keep track of discard pile of answers
-function throw_away_card(discarded_cards_n_throw_away_deck){
+function throw_away_card(data){
 
-  discarded_cards = discarded_cards_n_throw_away_deck.cards;
-  throw_away_deck = discarded_cards_n_throw_away_deck.throw_away_cards;
+  discarded_cards = data.cards;
+  throw_away_deck = data.throw_away_cards;
 
   for (var card in discarded_cards){
     throw_away_deck.push(card);
@@ -65,18 +65,18 @@ function throw_away_card(discarded_cards_n_throw_away_deck){
   return throw_away_deck;
 
 };
-function question_discard(card_n_discard_deck){
+function question_discard(data){
 
-  discard_deck = card_n_discard_deck.deck;
-  card = card_n_discard_deck.card;
+  discard_deck = data.deck;
+  card = data.card;
 
   discard_deck.push(card);
   return discard_deck;
 
 }
-function pick_winner(answers_n_question_cards){
+function pick_winner(data){
 
-  answer_card = answer_n_question_cards.answer_card
+  answer_card = data.answer_card
   winner = answer_card.owner
   // returns winning player
   return winner.owner     //potential depedency issue... maybe?
