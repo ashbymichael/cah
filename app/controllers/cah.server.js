@@ -51,15 +51,21 @@ function onCreateNewGame() {
 };
 
 function onPlayerWantsToJoinGame(data) {
-
-  var sock = this;
-  sock.join(data.gameID);
-  name = data.playerName
-  rooms[data.gameID].players.push({id: this.id, player_name: name, hand: [], points: 0});
-  data["rooms"] = rooms;
-  data["numOfPlayer"] = io.nsps['/'].adapter.rooms[data.gameID].length - 1;
-  io.sockets.to(data.gameID).emit('playerJoinedGame', data);
-
+  if (rooms[data.gameID]) {
+    var sock = this;
+    sock.join(data.gameID);
+    // name = data.playerName;
+    rooms[data.gameID].players.push({id: this.id,
+                                     player_name: data.playerName,
+                                     hand: [],
+                                     points: 0});
+    data['rooms'] = rooms;
+    data['numOfPlayer'] = io.nsps['/'].adapter.rooms[data.gameID].length - 1;
+    io.sockets.to(data.gameID).emit('playerJoinedGame', data);
+  } else {
+    console.log("Player " + data.playerName + " requested invalid game " + data.gameID);
+    gameSocket.emit('gameIDNotValid', data);
+  }
 };
 
 function onStartGame(data) {
