@@ -20,6 +20,7 @@ exports.initConnect = function(sio, socket) {
   gameSocket.on('createNewGame', onCreateNewGame);
   gameSocket.on('playerWantsToJoinGame', onPlayerWantsToJoinGame);
   gameSocket.on('startGame', onStartGame);
+  gameSocket.on('playedCard', onPlayedCard);
 
 };
 
@@ -81,6 +82,13 @@ function onStartGame(data) {
     };
 
   io.sockets.to(data.room).emit('gameStarted', room);
+};
+
+function onPlayedCard(data){
+  // console.log("got to played card with:");
+   console.log(data.played_cards);
+   io.sockets.connected[data.current_czar.id].emit('reloadCzar', data);
+
 };
 
 function onNewRound(data){
