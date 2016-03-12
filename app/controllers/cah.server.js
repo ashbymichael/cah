@@ -9,6 +9,9 @@ var io,
     answer_deck = [],
     util      = require('util'),
     game = require('../models/cah.game'),
+    db         = require('../models/db.js'),
+    // game       = require('../models/games.js'),
+    mongoose   = require('mongoose'),
     _ = require("underscore");
 
 // sets up the event listeners for Socket.io
@@ -32,6 +35,14 @@ exports.onReturn = function(cookies) {
 };
 
 function onCreateNewGame() {
+
+  mongoose.model('Game').create({
+    room_number: parseInt(Math.random() * 10000, 10)
+  });
+
+  var lookAtAllTheGames = mongoose.model('Game').findOne({})
+  ;
+  console.log(lookAtAllTheGames);
 
   var thisGameID = parseInt(Math.random() * 10000, 10);
   rooms[thisGameID] = {
