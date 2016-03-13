@@ -3,4 +3,7 @@ var mongoose = require('mongoose');
 var gameSchema = new mongoose.Schema({
   room_number: Number
 });
-mongoose.model('Game', gameSchema);
+
+var exports = module.exports = {};
+
+exports.Game = mongoose.model('Game', gameSchema);
