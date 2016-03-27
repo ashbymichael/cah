@@ -10,6 +10,8 @@ var express    = require('express'),
     http       = require('http').Server(app),  // create an http server with Node's HTTP module. // Pass it the express application
     io         = require('socket.io')(http),   //Instantiates Socket.IO
     cah        = require('./app/controllers/cah.server.js'),
+    db         = require('./app/models/db.js'),
+    game       = require('./app/models/games.js'),
     bodyParser = require('body-parser');
 
 
