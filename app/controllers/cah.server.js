@@ -4,15 +4,15 @@ This file is called by index.js. Here we set up the Socket.io interface and also
 
 var io,
     gameSocket,
-    rooms     = {},
+    rooms         = {},
     question_deck = [],
-    answer_deck = [],
-    util      = require('util'),
-    game = require('../models/cah.game'),
-    db         = require('../models/db.js'),
-    games       = require('../models/games.js'),
-    mongoose   = require('mongoose'),
-    _ = require("underscore");
+    answer_deck   = [],
+    util          = require('util'),
+    game          = require('../models/cah.game'),
+    db            = require('../models/db.js'),
+    games         = require('../models/games.js'),
+    // mongoose      = require('mongoose'),
+    _             = require("underscore");
 
 // sets up the event listeners for Socket.io
 exports.initConnect = function(sio, socket) {
@@ -42,6 +42,11 @@ function onCreateNewGame() {
 
   var newGame = new games.Game({room_number: parseInt(Math.random() * 10000, 10)})
   // var test_game = mongoose.model('Game').findOne();
+
+  newGame.save(function(err, newGame) {
+    if (err) return console.error(err);
+  });
+
   console.log(newGame.room_number);
 
   // var test_game = mongoose.model('Game').findOne();

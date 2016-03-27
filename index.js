@@ -10,7 +10,9 @@ var express    = require('express'),
     http       = require('http').Server(app),  // create an http server with Node's HTTP module. // Pass it the express application
     io         = require('socket.io')(http),   //Instantiates Socket.IO
     cah        = require('./app/controllers/cah.server.js'),
-    db         = require('./app/models/db.js'),
+    mongoose   = require('mongoose'),
+    // mongoose = mon.connect('mongodb://localhost/cah'),
+    db         = mongoose.connection,
     game       = require('./app/models/games.js'),
     bodyParser = require('body-parser');
 
@@ -18,6 +20,12 @@ var express    = require('express'),
 app.use(express.static('public'));
 app.use(require('cookie-parser')('c)378fHR37!mfVJ30vn28S938BMjrn'));
 app.use(bodyParser.urlencoded({ extended: false }));
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("we're connected to MongoDB!");
+});
+
 
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
