@@ -31,23 +31,20 @@ exports.onReturn = function(cookies) {
 
   console.log("onReturn hit");
   console.log("id: " + gameSocket.id);
-  // io.sockets.emit('setReturn', { name: cookies.name, game: cookies.game });
 };
 
 function onCreateNewGame() {
 
-  // mongoose.model('Game').create({
-  //   room_number: parseInt(Math.random() * 10000, 10)
-  // });
-
-  var newGame = new games.Game({room_number: parseInt(Math.random() * 10000, 10)})
-  // var test_game = mongoose.model('Game').findOne();
-  console.log(newGame.room_number);
-
-  // var test_game = mongoose.model('Game').findOne();
-  // console.log(Object.keys(test_game));
+  var newGame = new games.Game({
+    room_number: parseInt(Math.random() * 10000, 10),
+    players: [],
+    question_cards: [],
+    answer_cards: [],
+    played_cards: []
+  });
 
   var thisGameID = newGame.room_number;
+
   rooms[thisGameID] = {
     players: [],
     question_cards: [],
@@ -56,8 +53,18 @@ function onCreateNewGame() {
     current_question: {},
     played_cards: []
    };
+
    rooms[thisGameID].question_cards = game.question_deck();
    rooms[thisGameID].answer_cards = game.answer_deck();
+
+   newGame.question_cards = game.question_deck();
+   newGame.answer_cards = game.answer_deck();
+
+   newGame.save(function(err, newGame){
+     if (err){
+       return console.error(err);
+     }
+   });
 
   this.join(thisGameID.toString());
   this.emit('newGameCreated', { gameID: thisGameID, mySocketID: this.id });
@@ -68,11 +75,16 @@ function onPlayerWantsToJoinGame(data) {
   if (rooms[data.gameID]) {
     var sock = this;
     sock.join(data.gameID);
-    // name = data.playerName;
+
     rooms[data.gameID].players.push({id: this.id,
                                      player_name: data.playerName,
                                      hand: [],
                                      points: 0});
+
+    // mongoose.model('Game').find({}, function(err,games){
+    //   console.log(games);
+    // })
+
     data['rooms'] = rooms;
     data['numOfPlayer'] = io.nsps['/'].adapter.rooms[data.gameID].length - 1;
     io.sockets.to(data.gameID).emit('playerJoinedGame', data);
@@ -95,11 +107,22 @@ function onStartGame(data) {
     io.sockets.connected[player_list[player].id].emit('cards', player_list[player].hand);
     };
 
+  //  Experimental
+  var test = "I am a test."
+
+  var michael = mongoose.model('Game').find({room_number: data.room}, function(err, game){
+    test = "Another string";
+    console.log("Inside michael promise: " + test);
+  });
+
+  michael.then(function(return_val) {
+    console.log(return_val[0].room_number);
+  });
+
   io.sockets.to(data.room).emit('gameStarted', room);
 };
 
 function onPlayedCard(data){
-  // console.log("got to played card with:");
    console.log(data.played_cards);
    io.sockets.connected[data.current_czar.id].emit('reloadCzar', data);
 
