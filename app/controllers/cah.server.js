@@ -35,12 +35,12 @@ exports.onReturn = function(cookies) {
 
 function onCreateNewGame() {
 
-  var newGame = new games.Game({room_number: parseInt(Math.random() * 10000, 10)})
-
-  newGame.save(function(err, newGame){
-    if (err){
-      return console.error(err);
-    }
+  var newGame = new games.Game({
+    room_number: parseInt(Math.random() * 10000, 10),
+    players: [],
+    question_cards: [],
+    answer_cards: [],
+    played_cards: []
   });
 
   var thisGameID = newGame.room_number;
@@ -53,8 +53,18 @@ function onCreateNewGame() {
     current_question: {},
     played_cards: []
    };
+
    rooms[thisGameID].question_cards = game.question_deck();
    rooms[thisGameID].answer_cards = game.answer_deck();
+
+   newGame.question_cards = game.question_deck();
+   newGame.answer_cards = game.answer_deck();
+
+   newGame.save(function(err, newGame){
+     if (err){
+       return console.error(err);
+     }
+   });
 
   this.join(thisGameID.toString());
   this.emit('newGameCreated', { gameID: thisGameID, mySocketID: this.id });
@@ -71,9 +81,9 @@ function onPlayerWantsToJoinGame(data) {
                                      hand: [],
                                      points: 0});
 
-    mongoose.model('Game').find({}, function(err,games){
-      console.log(games);
-    })
+    // mongoose.model('Game').find({}, function(err,games){
+    //   console.log(games);
+    // })
 
     data['rooms'] = rooms;
     data['numOfPlayer'] = io.nsps['/'].adapter.rooms[data.gameID].length - 1;
@@ -96,6 +106,18 @@ function onStartGame(data) {
   for (var player in player_list) {
     io.sockets.connected[player_list[player].id].emit('cards', player_list[player].hand);
     };
+
+  //  Experimental
+  var test = "I am a test."
+
+  var michael = mongoose.model('Game').find({room_number: data.room}, function(err, game){
+    test = "Another string";
+    console.log("Inside michael promise: " + test);
+  });
+
+  michael.then(function(return_val) {
+    console.log(return_val[0].room_number);
+  });
 
   io.sockets.to(data.room).emit('gameStarted', room);
 };
