@@ -12,12 +12,15 @@ var express    = require('express'),
     cah        = require('./app/controllers/cah.server.js'),
     db         = require('./app/models/db.js'),
     game       = require('./app/models/games.js'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    CAH        = require('./CAH.module');
 
 
 app.use(express.static('public'));
 app.use(require('cookie-parser')('c)378fHR37!mfVJ30vn28S938BMjrn'));
 app.use(bodyParser.urlencoded({ extended: false }));
+
+console.log(CAH.sayHello());
 
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
